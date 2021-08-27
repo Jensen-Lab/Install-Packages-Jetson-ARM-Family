@@ -1,13 +1,16 @@
 # Install-Packages-Jetson-ARM-Family
-The objective is to give you clear instruction on how to install packages in ARM platform, especially in Jetson family. This instruction was done under Python 3. Tests have been made on Jetson TX2 and Jetson Xavier. You may change ```sudo python3``` and ```sudo pip3``` into ```sudo python2``` and ```sudo pip```, respectively, to make it work under Python 2.
+The objective is to give you clear instruction on how to install packages in ARM platform, especially in Jetson family. This instruction was done under Python 3. 
+This has been done with py
 
 ## Dependencies Installation
 Before performing any installations, you may need to install the basic dependencies first.
 ```
-$ sudo apt-get install cmake
-$ sudo apt-get install python3-pip
-$ sudo pip3 install wget
-$ sudo pip3 install Cython
+$ sudo apt install cmake
+$ sudo python3 -m pip install wget
+$ sudo python3 -m pip install Cython
+$ sudo apt install libhdf5-serial-dev hdf5-tools libhdf5-dev
+$ sudo apt install libblas-dev liblapack-dev libatlas-base-dev gfortran
+$ sudo python3 -m pip install numpy scipy 
 ```
 
 ## PyCUDA Installation
@@ -30,11 +33,12 @@ $ sudo pip3 install .
 ```
 
 ## LLVM Installation
-In this tutorial, I used LLVM 7.0.1.
+Numba needs the installation of LLVM to the system. It's the back end compiler for llvmlite that is the key dependency for numba.
+This will take a while (a few hours) and most things will crash in the mean time.
 ```
-$ wget http://releases.llvm.org/7.0.1/llvm-7.0.1.src.tar.xz
-$ tar -xvf llvm-7.0.1.src.tar.xz
-$ cd llvm-7.0.1.src
+$ wget http://releases.llvm.org/9.0.1/llvm-9.0.1.src.tar.xz
+$ tar -xvf llvm-9.0.1.src.tar.xz
+$ cd llvm-9.0.1.src
 $ mkdir llvm_build_dir
 $ cd llvm_build_dir/
 $ cmake ../ -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD="ARM;X86;AArch64"
@@ -44,7 +48,22 @@ $ cd bin/
 $ echo "export LLVM_CONFIG=\""`pwd`"/llvm-config\"" >> ~/.bashrc
 $ echo "alias llvm='"`pwd`"/llvm-lit'" >> ~/.bashrc
 $ source ~/.bashrc
-$ sudo pip3 install llvmlite==0.30.0
+$ sudo pip3 install llvmlite==0.33.0
+```
+Restart the system after this as the system can be very unstable after this installation.
+
+
+## TBB update
+https://github.com/jefflgaol/Install-Packages-Jetson-ARM-Family/issues/2
+Thank you for surefyyq for the solution regarding the TBB issue.
+This needs to be updated to the most recent version as the jetsons only come with the 2019 version.
+As per the LLVM compile, this will take some time and monopolise the system resources. 
+```
+$ git clone https://github.com/wjakob/tbb.git
+$ cd tbb/build
+$ cmake ..
+$ make -j
+$ sudo make install
 ```
 
 ## Numba Installation
@@ -112,15 +131,4 @@ Collecting tensorflow-gpu
 So, I downloaded tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl. From the download directory, I ran this inside the terminal:
 ```
 $ sudo pip3 install tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl
-```
-
-## TBB issues
-https://github.com/jefflgaol/Install-Packages-Jetson-ARM-Family/issues/2
-Thank you for surefyyq for the solution regarding the TBB issue.
-```
-$ git clone https://github.com/wjakob/tbb.git
-$ cd tbb/build
-$ cmake ..
-$ make -j
-$ sudo make install
 ```

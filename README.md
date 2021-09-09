@@ -36,7 +36,7 @@ $ sudo pip3 install .
 Numba needs the installation of LLVM to the system. It's the back end compiler for llvmlite that is the key dependency for numba.
 This will take a while (a few hours) and most things will crash in the mean time.
 ```
-$ wget http://releases.llvm.org/9.0.1/llvm-9.0.1.src.tar.xz
+$ wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/llvm-9.0.1.src.tar.xz
 $ tar -xvf llvm-9.0.1.src.tar.xz
 $ cd llvm-9.0.1.src
 $ mkdir llvm_build_dir

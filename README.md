@@ -1,30 +1,28 @@
 # Install-Packages-Jetson-ARM-Family
-The objective is to give you clear instruction on how to install packages in ARM platform, especially in Jetson family. This instruction was done under Python 3. 
-This has been done with py
+The objective is to give you clear instruction on how to install packages in ARM platform, especially in Jetson family.
+
+Matt here: I've done pretty much every step on this list of installs on both jetpack 4.4.1 and jetpack 4.6.
+           With this set of dependencies, it was possible to run pretty much everything you could ever want on these platforms
+           One other thing to consider is the system time. The jetson family is not great at keeping it's time, so if you're getting errors, fix it and try again.
+           Also for stability
 
 ## Dependencies Installation
 Before performing any installations, you may need to install the basic dependencies first.
 ```
-$ sudo apt install cmake
-$ sudo python3 -m pip install wget
-$ sudo python3 -m pip install Cython
-$ sudo apt install libhdf5-serial-dev hdf5-tools libhdf5-dev
-$ sudo apt install libblas-dev liblapack-dev libatlas-base-dev gfortran
-$ sudo python3 -m pip install numpy scipy 
+$ sudo apt install cmake libhdf5-serial-dev hdf5-tools libhdf5-dev libblas-dev liblapack-dev libatlas-base-dev gfortran screen
+$ sudo python3 -m pip install wget Cython numpy scipy
 ```
 
 ## PyCUDA Installation
 ```
-$ sudo apt-get install libboost-all-dev
-$ sudo apt-get install python-numpy
-$ sudo apt-get install build-essential python-dev python-setuptools libboost-python-dev libboost-thread-dev
+$ sudo apt-get install libboost-all-dev python-numpy build-essential python-dev python-setuptools libboost-python-dev libboost-thread-dev
 ```
 You need to download PyCUDA from https://pypi.org/project/pycuda/#files. In the same directory of your PyCUDA download, run this terminal
 ```
 $ tar xzvf pycuda-VERSION.tar.gz
 $ cd pycuda-VERSION
 ```
-Open configure.py and change the /usr/bin/env python into /usr/bin/env python3
+Open configure.py and change the /usr/bin/env python into /usr/bin/env python3 (Matt here: I haven't needed to do this)
 ```
 $ ./configure.py
 $ make -j4
@@ -34,7 +32,7 @@ $ sudo pip3 install .
 
 ## LLVM Installation
 Numba needs the installation of LLVM to the system. It's the back end compiler for llvmlite that is the key dependency for numba.
-This will take a while (a few hours) and most things will crash in the mean time.
+This will take a while (a few hours) and most things will crash in the mean time, so leave it alone.
 ```
 $ wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/llvm-9.0.1.src.tar.xz
 $ tar -xvf llvm-9.0.1.src.tar.xz
@@ -42,7 +40,7 @@ $ cd llvm-9.0.1.src
 $ mkdir llvm_build_dir
 $ cd llvm_build_dir/
 $ cmake ../ -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD="ARM;X86;AArch64"
-$ make -j4
+$ make -j4 %% Matt here again, the 4 here is telling it how many processor cores to use, for speed 4, for stability, use 3
 $ sudo make install
 $ cd bin/
 $ echo "export LLVM_CONFIG=\""`pwd`"/llvm-config\"" >> ~/.bashrc
@@ -73,11 +71,12 @@ $ sudo pip3 install numba
 ```
 
 ## Protobuf Installation
-You may install Protobuf directly from Python using pip:
+Protobuf is needed for ONNX, and it'll throw a hissy fit if you don't get this done first
 ```
+sudo apt-get install protobuf-compiler libprotoc-dev
 $ sudo pip3 install protobuf
 ```
-If that doesn't work, you may build from source:
+If that doesn't work, you may build from source: (Haven't needed to do it, but potentially will need to in the future)
 ```
 $ git clone https://github.com/protocolbuffers/protobuf.git
 $ cd protobuf

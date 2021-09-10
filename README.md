@@ -10,7 +10,7 @@ Matt here: I've done pretty much every step on this list of installs on both jet
 Before performing any installations, you may need to install the basic dependencies first.
 ```
 $ sudo apt install cmake libhdf5-serial-dev hdf5-tools libhdf5-dev libblas-dev liblapack-dev libatlas-base-dev gfortran screen
-$ sudo python3 -m pip install wget Cython numpy scipy
+$ sudo python3 -m pip install wget Cython numpy==1.19.4 scipy==1.15.4
 ```
 
 ## PyCUDA Installation
@@ -33,6 +33,7 @@ $ sudo pip3 install .
 ## LLVM Installation
 Numba needs the installation of LLVM to the system. It's the back end compiler for llvmlite that is the key dependency for numba.
 This will take a while (a few hours) and most things will crash in the mean time, so leave it alone.
+*A suggestion* You can try also running the jetson GUI-less so that you can make this work a bunch faster and free up memory. Go to 'CuPy Installation' for details
 ```
 $ wget https://github.com/llvm/llvm-project/releases/download/llvmorg-9.0.1/llvm-9.0.1.src.tar.xz
 $ tar -xvf llvm-9.0.1.src.tar.xz
@@ -102,6 +103,33 @@ $ sudo apt-get install libblas-dev liblapack-dev libatlas-base-dev gfortran
 $ sudo pip3 install scipy
 $ sudo pip3 install keras
 ```
+
+## CuPy Installation
+Installing CuPy is a bit of a pain. It will quickly crash out your memory, so you'll need to follow these instructions to the letter so it's actually possible.
+```
+$ sudo systemctl set-default multi-user.target
+```
+Then reboot your system into just the GUI-less system
+```
+$ cd /home/jetl/Downloads
+$ git clone https://github.com/cupy/cupy.git
+$ cd /cupy
+$ sudo -H python3 -m pip -v install .
+```
+Now after 2 hours *hopefully* you'll have cupy installed and you should be good to go!
+To get the GUI back you just need to put in the following command and reboot
+```
+sudo systemctl set-default graphical.target
+reboot
+```
+## Installing FastMOT
+FastMOT is a great little setup for multiple object tracking, and has been built for the jetson systems and x86 systems. 
+For installation I'd just follow the instructions at his website: https://github.com/GeekAlexis/FastMOT
+The instructions are relatively comprehensive for installing on the jetson system. For the x86 systems, the docker setup required some serious tinkering...
+
+## My suggestions regarding retraining YOLO
+The FastMOT system utilizes Yolo to function
+
 
 ## Tensorflow Installation
 ```

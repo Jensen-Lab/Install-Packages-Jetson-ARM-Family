@@ -4,6 +4,11 @@ Working with GStreamer on the Jetson nano can be really painful at times, but du
 A great place to start learning about using the pipeline setup that Gstreamer has available can be found at:
 https://developer.nvidia.com/embedded/learn/tutorials/first-picture-csi-usb-camera
 
+These are great examples to get started with the gist of GStreamer,and the nvgstcapture-1.0 is really good to get started, it's just an app that uses a GStreamer backend to perform all the magic that you see. With this setup though, and the help file in the link below, you can easily view, capture and encode anything quickly and easily.
+https://docs.nvidia.com/jetson/l4t/index.html#page/Tegra%20Linux%20Driver%20Package%20Development%20Guide/accelerated_gstreamer.html#wwpID0E0IB0HA
+
+If we want to do anything more complicated like streaming into OpenCV, machine learning or anything of the sort, we need to get into the GStreamer pipeline setup.
+
 ## Running some more complex pipelines with GStreamer
 All the things I have put together come from this documentation: 
 https://docs.nvidia.com/jetson/l4t/index.html#page/Tegra%20Linux%20Driver%20Package%20Development%20Guide/accelerated_gstreamer.html#wwpID0E06P0HA

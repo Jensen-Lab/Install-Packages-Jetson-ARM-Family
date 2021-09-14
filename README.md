@@ -9,8 +9,13 @@ Matt here: I've done pretty much every step on this list of installs on both jet
 ## Some info here about getting the Raspberry Pi HQ Camera up and running
 First off, the camera will need some small modifications to work properly with the Jetsons. Just follow the great tutorial by RidgeRun:
 https://developer.ridgerun.com/wiki/index.php?title=Raspberry_Pi_HQ_camera_IMX477_Linux_driver_for_Jetson
+If you're running JetPack 4.4.1 or 4.6, then the instructions to install the drivers for the cameras don't work. Just head down to "Installing the camera drivers"
 
-## Installing the Camera drivers
+## Installing the camera drivers
+If you're using JetPack 4.6, you can just go in to the driver selection and change which camera you're set up for. Otherwise skip to installing the driver.
+```
+sudo /opt/nvidia/jetson-io/jetson-io.py
+```
 To check whether the camera is recognised with the computer you can run the following command:
 ```
 $ ls /dev | grep video
@@ -22,7 +27,7 @@ wget https://github.com/ArduCAM/MIPI_Camera/releases/download/v0.0.3/install_ful
 chmod +x install_full.sh
 sudo ./install_full.sh -m imx477
 ```
-If you want to get change cameras back to the original RPi camera (IMX219), you can go into the file and change which camera you're using.
+If you want to get change cameras back to the original RPi camera (IMX219), you can go into the file and change which camera you're using. 
 ```
 sudo /opt/arducam/jetson-io/jetson-io.py
 ```

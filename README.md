@@ -1,5 +1,5 @@
-# Getting started with the Jetson Nano - installing packages, cameras and the lot
-The objective is to give you clear instruction on how to install packages in ARM platform, especially in Jetson family.
+# Getting started with the Jetson Nano
+The objective is to give you clear instruction on how to install packages and cameras on the Jetson Nano.
 
 Matt here: I've done pretty much every step on this list of installs on both jetpack 4.4.1. I do not recommend that you use JetPack 4.6 as they've heavily modified
            Gstreamer and it no longer works with any of the pre-built code for streaming it to OpenCV.

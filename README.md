@@ -1,10 +1,32 @@
-# Install-Packages-Jetson-ARM-Family
+# Getting started with the Jetson Nano - installing packages, cameras and the lot
 The objective is to give you clear instruction on how to install packages in ARM platform, especially in Jetson family.
 
-Matt here: I've done pretty much every step on this list of installs on both jetpack 4.4.1 and jetpack 4.6.
+Matt here: I've done pretty much every step on this list of installs on both jetpack 4.4.1. I do not recommend that you use JetPack 4.6 as they've heavily modified
+           Gstreamer and it no longer works with any of the pre-built code for streaming it to OpenCV.
            With this set of dependencies, it was possible to run pretty much everything you could ever want on these platforms
            One other thing to consider is the system time. The jetson family is not great at keeping it's time, so if you're getting errors, fix it and try again.
-           Also for stability
+           
+## Some info here about getting the Raspberry Pi HQ Camera up and running
+First off, the camera will need some small modifications to work properly with the Jetsons. Just follow the great tutorial by RidgeRun:
+https://developer.ridgerun.com/wiki/index.php?title=Raspberry_Pi_HQ_camera_IMX477_Linux_driver_for_Jetson
+
+## Installing the Camera drivers
+To check whether the camera is recognised with the computer you can run the following command:
+```
+$ ls /dev | grep video
+```
+If it finds video0 or video1 you're in business, but otherwise you'll need to get the driver installed.
+```
+cd $HOME
+wget https://github.com/ArduCAM/MIPI_Camera/releases/download/v0.0.3/install_full.sh
+chmod +x install_full.sh
+sudo ./install_full.sh -m imx477
+```
+If you want to get change cameras back to the original RPi camera (IMX219), you can go into the file and change which camera you're using.
+```
+sudo /opt/arducam/jetson-io/jetson-io.py
+```
+All this info can also be found at https://www.arducam.com/docs/camera-for-jetson-nano/native-jetson-cameras-imx219-imx477/imx477-how-to-install-the-driver/
 
 ## Dependencies Installation
 Before performing any installations, you may need to install the basic dependencies first.
@@ -128,8 +150,8 @@ For installation I'd just follow the instructions at his website: https://github
 The instructions are relatively comprehensive for installing on the jetson system. For the x86 systems, the docker setup required some serious tinkering...
 
 ## My suggestions regarding retraining YOLO
-The FastMOT system utilizes Yolo to function
-
+The FastMOT system utilizes YOLOv4 to function currently. It works okay, but on the Jetson it's very slow. My suggestion is to go to another system that has a dedicated CUDA GPU and install Darknet and train there. Otherwise, there are many re-incarnations of YOLOv4 that can be used that have been optimised for other platforms. I would suggest this as Darknet is painfully slow for retraining YOLOv4, taking 6hrs for a 10min training session with Tensorflow/Keras.
+For more information on this platform, go to https://github.com/AlexeyAB/darknet
 
 ## Tensorflow Installation
 ```
@@ -159,3 +181,5 @@ So, I downloaded tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl. F
 ```
 $ sudo pip3 install tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl
 ```
+
+

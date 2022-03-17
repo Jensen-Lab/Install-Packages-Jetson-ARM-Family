@@ -1,0 +1,12 @@
+[Unit]
+Description=Date Sync Service
+Wants=network-online.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/etc/systemd
+ExecStart=/bin/bash -c 'while true;do T="$(wget -qS --max-redirect 0 http://1.1.1.1/ 2>&1|grep -oiP '"'Date: \\K.+'"')";echo "[$T]";[ -n "$T" ] && date --set="$T" && break;sleep 1;done'
+
+[Install]
+WantedBy=multi-user.target

@@ -190,11 +190,11 @@ $ sudo pip3 install tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl
 ## Keeping time on the Jetson
 
 Just copy and paste this to start installing the service. It runs when you boot up the machine and turns off.
-
+````
 $ sudo wget -O /etc/network/if-up.d/date-sync https://raw.githubusercontent.com/Jensen-Lab/Install-Packages-Jetson-ARM-Family/master/date-time.service
 $ sudo chmod +x /etc/network/if-up.d/date-sync
 $ sudo systemctl enable date-sync.service
 $ sudo systemctl start date-sync.service
-
+````
 Every time you reboot now, if there's internet, you will refresh the time server.
 Otherwise, you can always start this service and it'll fix up the time

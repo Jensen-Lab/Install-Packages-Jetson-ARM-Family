@@ -37,7 +37,7 @@ All this info can also be found at https://www.arducam.com/docs/camera-for-jetso
 Before performing any installations, you may need to install the basic dependencies first.
 ```
 $ sudo apt install cmake python3-pip libhdf5-serial-dev hdf5-tools libhdf5-dev libblas-dev liblapack-dev libatlas-base-dev gfortran screen
-$ sudo python3 -m pip install wget Cython numpy==1.19.4 scipy==1.15.4
+$ sudo python3 -m pip install wget Cython numpy==1.19.4 scipy==1.5.4
 ```
 
 ## PyCUDA Installation

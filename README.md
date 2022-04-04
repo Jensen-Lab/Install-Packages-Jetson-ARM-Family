@@ -37,7 +37,7 @@ All this info can also be found at https://www.arducam.com/docs/camera-for-jetso
 Before performing any installations, you may need to install the basic dependencies first.
 ```
 $ sudo apt install cmake python3-pip libhdf5-serial-dev hdf5-tools libhdf5-dev libblas-dev liblapack-dev libatlas-base-dev gfortran screen
-$ sudo python3 -m pip install wget Cython numpy==1.19.4 scipy==1.5.4
+$ sudo python3 -m pip install wget Cython numpy==1.16.1 scipy==1.5.4
 ```
 
 ## PyCUDA Installation
@@ -191,8 +191,8 @@ $ sudo pip3 install tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl
 
 Just copy and paste this to start installing the service. It runs when you boot up the machine and turns off.
 ````
-$ sudo wget -O /etc/network/if-up.d/date-sync https://raw.githubusercontent.com/Jensen-Lab/Install-Packages-Jetson-ARM-Family/master/date-time.service
-$ sudo chmod +x /etc/network/if-up.d/date-sync
+$ sudo wget -O /etc/systemd/system/date-sync.service https://raw.githubusercontent.com/Jensen-Lab/Install-Packages-Jetson-ARM-Family/master/date-time.service
+$ sudo chmod +x /etc/systemd/system/date-sync
 $ sudo systemctl enable date-sync.service
 $ sudo systemctl start date-sync.service
 ````

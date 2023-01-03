@@ -186,6 +186,14 @@ So, I downloaded tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl. F
 ```
 $ sudo pip3 install tensorflow_gpu-1.13.0rc0+nv19.2-cp36-cp36m-linux_aarch64.whl
 ```
+## Installing OpenCV (4.5.1)
+
+To get everything working properly for this project, you'll need OpenCV and all it's magical functions.
+To get it working, you'll need to follow this website: https://qengineering.eu/install-opencv-4.5-on-jetson-nano.html
+
+It has a pretty nice little guide on how to run their automated script. Currently your jetson has 4.1.1, which is fine for many things, but lacks alot of their excellent cuda libraries that we use in the sedimentation project.
+
+```
 
 ## Keeping time on the Jetson
 
